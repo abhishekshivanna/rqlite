@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	sql "github.com/otoolep/rqlite/db"
-	"github.com/otoolep/rqlite/store"
+	sql "github.com/abhishekshivanna/rqlite/db"
+	"github.com/abhishekshivanna/rqlite/store"
 )
 
 func Test_NewService(t *testing.T) {

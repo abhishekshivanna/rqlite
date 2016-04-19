@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	sql "github.com/otoolep/rqlite/db"
-	"github.com/otoolep/rqlite/store"
+	sql "github.com/abhishekshivanna/rqlite/db"
+	"github.com/abhishekshivanna/rqlite/store"
 )
 
 // Store is the interface the Raft-driven database must implement.

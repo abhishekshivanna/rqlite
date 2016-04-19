@@ -17,9 +17,9 @@ import (
 	"sync"
 	"time"
 
+	sql "github.com/abhishekshivanna/rqlite/db"
 	"github.com/hashicorp/raft"
 	"github.com/hashicorp/raft-boltdb"
-	sql "github.com/otoolep/rqlite/db"
 )
 
 const (
@@ -92,7 +92,7 @@ func New(dbConf *sql.Config, dir, bind string) *Store {
 
 // Open opens the store. If enableSingle is set, and there are no existing peers,
 // then this node becomes the first node, and therefore leader, of the cluster.
-func (s *Store) Open(enableSingle bool) error {
+func (s *Store) Open(enableSingle bool, publicRaftAddr string) error {
 	if err := os.MkdirAll(s.raftDir, 0755); err != nil {
 		return err
 	}
@@ -134,7 +134,7 @@ func (s *Store) Open(enableSingle bool) error {
 	if err != nil {
 		return err
 	}
-	s.ln = newNetworkLayer(ln)
+	s.ln = newNetworkLayer(ln, publicRaftAddr)
 	transport := raft.NewNetworkTransport(s.ln, 3, 10*time.Second, os.Stderr)
 
 	// Create peer storage.

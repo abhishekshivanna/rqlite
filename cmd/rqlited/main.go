@@ -22,9 +22,9 @@ import (
 	"runtime/pprof"
 	"strings"
 
-	sql "github.com/otoolep/rqlite/db"
-	httpd "github.com/otoolep/rqlite/http"
-	"github.com/otoolep/rqlite/store"
+	sql "github.com/abhishekshivanna/rqlite/db"
+	httpd "github.com/abhishekshivanna/rqlite/http"
+	"github.com/abhishekshivanna/rqlite/store"
 )
 
 const sqliteDSN = "db.sqlite"

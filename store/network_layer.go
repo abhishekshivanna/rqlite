@@ -12,10 +12,11 @@ type networkLayer struct {
 }
 
 // newNetworkLayer returns a new instance of networkLayer.
-func newNetworkLayer(ln net.Listener) *networkLayer {
+func newNetworkLayer(ln net.Listener, publicRaftAddr string) *networkLayer {
+	addr, _ := net.ResolveTCPAddr("tcp", publicRaftAddr)
 	return &networkLayer{
 		ln:   ln,
-		addr: ln.Addr(),
+		addr: addr,
 	}
 }
 

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	sql "github.com/otoolep/rqlite/db"
+	sql "github.com/abhishekshivanna/rqlite/db"
 )
 
 func Test_OpenStoreSingleNode(t *testing.T) {
