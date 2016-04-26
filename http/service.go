@@ -39,6 +39,9 @@ type Store interface {
 
 	// Backup returns the byte stream of the backup file.
 	Backup(leader bool) ([]byte, error)
+
+	//RemovePeer used to remove a node from a cluster
+	RemovePeer(ip string)
 }
 
 // Response represents a response from the HTTP service.
@@ -150,11 +153,19 @@ func (s *Service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.handleJoin(w, r)
 	case strings.HasPrefix(r.URL.Path, "/status"):
 		s.handleStatus(w, r)
+	case strings.HasPrefix(r.URL.Path, "/removepeer"):
+		s.handleRemovePeer(w, r)
 	case r.URL.Path == "/debug/vars" && s.Expvar:
 		serveExpvar(w, r)
 	default:
 		w.WriteHeader(http.StatusNotFound)
 	}
+}
+
+func (s *Service) handleRemovePeer(w http.ResponseWriter, r *http.Request) {
+	ip := r.URL.Query().Get("ip")
+	s.store.RemovePeer(ip)
+	json.NewEncoder(w).Encode(map[string]int{"status": http.StatusOK})
 }
 
 // handleJoin handles cluster-join requests from other nodes.

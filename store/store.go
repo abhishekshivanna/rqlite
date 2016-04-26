@@ -162,6 +162,11 @@ func (s *Store) Open(enableSingle bool, publicRaftAddr string) error {
 	return nil
 }
 
+func (s *Store) RemovePeer(ip string) {
+	s.raft.RemovePeer(ip)
+	log.Println("removed peer: " + ip)
+}
+
 // Close closes the store.
 func (s *Store) Close() error {
 	if err := s.db.Close(); err != nil {
